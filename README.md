@@ -1,6 +1,36 @@
 # CarND-Path-Planning-Project
-Self-Driving Car Engineer Nanodegree Program
-   
+**Self-Driving Car Engineer Nanodegree Program**
+
+[MAIN]: ./imgs/main.png
+
+
+[![IMAGE ALT TEXT](./imgs/main.png)](https://www.youtube.com/watch?v=SamaSCw59j0 "Path Planning video")
+**Click on the image to go to the youtube video**
+
+
+
+---
+
+### Path planning project
+
+The objective of this project is to create a path planning algorithm that navigates a highway with other road users. The main challenges are to avoid exceeding the "comfort" limits for the lateral and longitudinal acceleration and jerks and be able to perform safe lane changes in order to keep progressing.
+
+My implementation is heavily based in the walkthrough video done by Aaron Brown and David Silver. This video was very helpful for me to get a better understanding of the problem that we were facing and the already existing code base.
+
+The algorithm generates a path that crosses all the waypoints provided to us. To make the path smoother, the paths that I generate take into account the previous ones (lines 420 - 445). Then, some intermediate reference points are generated (lines 450 - 474) and used to fit a spline that will help us on defining the final path in a smooth and continous way (line 492).
+In order to perform a lane change, the algorithm checks for other road users in the target lane and analyzes their speed and position to assess if a lane change is safe or not (lines 340 - 390).
+If there is a car in the ego lane and a lane change is not possible, the ego vehicle will reduce its speed to match the one to the car in front while keeping a safe distance (lines 268 - 308).
+
+The car is capable of going around the circuit multiple laps without any incidents, but still there is plenty of room for improvement. Most of the incidents that happen are related to maneouvers done by other cars while the ego vehicle is in the middle of a lane change.
+
+Some of the possible improvements to be added are the implementation of a cost function for lane change, the addition of traffic rules such as an overtake is only possible on a faster lane (no overtakes on the right), a better monitoring of the neighbour lanes to assess the behaviour of the other road users while we are changing lanes and a better speed controller.
+
+
+
+
+---
+### Original readme
+
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases).
 
@@ -38,13 +68,13 @@ Here is the data provided from the Simulator to the C++ Program
 #### Previous path data given to the Planner
 
 //Note: Return the previous list but with processed points removed, can be a nice tool to show how far along
-the path has processed since last time. 
+the path has processed since last time.
 
 ["previous_path_x"] The previous list of x points previously given to the simulator
 
 ["previous_path_y"] The previous list of y points previously given to the simulator
 
-#### Previous path's end s and d values 
+#### Previous path's end s and d values
 
 ["end_path_s"] The previous list's last point's frenet s value
 
@@ -52,7 +82,7 @@ the path has processed since last time.
 
 #### Sensor Fusion Data, a list of all other car's attributes on the same side of the road. (No Noise)
 
-["sensor_fusion"] A 2d vector of cars and then that car's [car's unique ID, car's x position in map coordinates, car's y position in map coordinates, car's x velocity in m/s, car's y velocity in m/s, car's s position in frenet coordinates, car's d position in frenet coordinates. 
+["sensor_fusion"] A 2d vector of cars and then that car's [car's unique ID, car's x position in map coordinates, car's y position in map coordinates, car's x velocity in m/s, car's y velocity in m/s, car's s position in frenet coordinates, car's d position in frenet coordinates.
 
 ## Details
 
@@ -82,7 +112,7 @@ A really helpful resource for doing this project and creating smooth trajectorie
   * Run either `install-mac.sh` or `install-ubuntu.sh`.
   * If you install from source, checkout to commit `e94b6e1`, i.e.
     ```
-    git clone https://github.com/uWebSockets/uWebSockets 
+    git clone https://github.com/uWebSockets/uWebSockets
     cd uWebSockets
     git checkout e94b6e1
     ```
@@ -137,4 +167,3 @@ still be compilable with cmake and make./
 
 ## How to write a README
 A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
